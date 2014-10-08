@@ -2,23 +2,20 @@ package br.com.caelum.online.loja.controlador;
 
 import java.util.List;
 
-import br.com.caelum.online.loja.dao.ProdutoDao;
 import br.com.caelum.online.loja.dominio.Produto;
+import br.com.caelum.online.loja.repositorio.RepositorioDeProdutos;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ProdutoController {
 
-	private final ProdutoDao produtos;
-	private final Result result;
+	private RepositorioDeProdutos produtos;
 
-	public ProdutoController(Result result) {
-		this.result = result;
-		this.produtos = new ProdutoDao();
+	public ProdutoController(RepositorioDeProdutos produtos) {
+		
+		this.produtos = produtos;
 	}
 	
 	public void formulario() {
@@ -27,15 +24,8 @@ public class ProdutoController {
 	
 	@Post
 	public void adiciona(Produto produto) {
+		
 		produtos.salva(produto);
-		
-		result.include("mensagem", "Novo produto adicionado com sucesso!");
-		
-		// Redirecionamento do lado do servidor
-		//result.forwardTo(ProdutoController.class).lista();
-		
-		// Redirecionamento do lado do cliente
-		result.redirectTo(ProdutoController.class).lista();
 	}
 	
 	public List<Produto> lista() {
@@ -48,20 +38,5 @@ public class ProdutoController {
 		
 		return produtos.pegaPorId(id);
 	}
-	
-	@Path("/produto/{id}/xml")
-	public void exibeComoXMl(Long id) {
-		
-		Produto produto = produtos.pegaPorId(id);
-		result.use(Results.xml()).from(produto).serialize();
-		
-	}
-	
-	@Path("/produto/{id}/json")
-	public void exibeComoJSON(Long id) {
-		
-		Produto produto = produtos.pegaPorId(id);
-		result.use(Results.json()).from(produto).serialize();
-		
-	}
+
 }
