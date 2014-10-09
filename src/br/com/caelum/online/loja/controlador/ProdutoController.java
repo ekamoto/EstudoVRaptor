@@ -7,6 +7,7 @@ import br.com.caelum.online.loja.repositorio.RepositorioDeProdutos;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.ValidationMessage;
@@ -17,11 +18,13 @@ public class ProdutoController {
 
 	private final RepositorioDeProdutos produtos;
 	private final Validator validator;
+	private Result result;
 
-	public ProdutoController(RepositorioDeProdutos produtos, Validator validator) {
+	public ProdutoController(RepositorioDeProdutos produtos, Validator validator, Result result) {
 		
 		this.produtos = produtos;
 		this.validator = validator;
+		this.result = result;
 	}
 	
 	public void formulario() {
@@ -68,6 +71,11 @@ public class ProdutoController {
 	public Produto exibe(Long id) {
 		
 		return produtos.pegaPorId(id);
+	}
+	
+	public void remove(Produto produto) {
+		produtos.remove(produto);
+		result.nothing();
 	}
 
 }
