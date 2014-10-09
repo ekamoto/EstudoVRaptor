@@ -8,31 +8,36 @@
 <title>Novo Produto</title>
 </head>
 <body>
+
+	<c:forEach items="${errors }" var="error">
+		${error.category } - ${error.message }  
+	</c:forEach>
+
 	<table>
 
 		<form action="<c:url value="/produto/adiciona"/>" method="POST">
 			<tr>
 				<td>Nome:</td>
 				<td>
-					<input type="text" name="produto.nome">
+					<input type="text" name="produto.nome" value="${produto.nome }">
 				</td>
 			</tr>
 			<tr>
 				<td>Descrição:</td>
 				<td>
-					<input type="text" name="produto.decricao">
+					<input type="text" name="produto.descricao" value="${produto.descricao }">
 				</td>
 			</tr>
 			<tr>
 				<td>Preço:</td>
 				<td>
-					<input type="text" name="produto.preco">
+					<input type="text" name="produto.preco" value="${produto.preco }">
 				</td>
 			</tr>
 			<tr>
 				<td>Cor:</td>
 				<td>
-					<input type="text" name="produto.cor">
+					<input type="text" name="produto.cor" value="${produto.cor }">
 				</td>
 			</tr>
 			<tr>

@@ -8,6 +8,7 @@
 <title>Logar</title>
 </head>
 <body>
+
 <table> 
      <form action="<c:url value="/login/loga" />" method="post">
     <tr>
